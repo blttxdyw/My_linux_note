@@ -1,0 +1,137 @@
+command:
+
+	man 
+
+	passwd:
+		格式:passwd username
+
+
+	su: 
+		su -c 执行完命令后就结束   不切换环境变量
+		su -m 切换环境变量
+		su - 切换到root   切换环境变量
+
+	echo:
+		echo [-n] string   -n 表示换行
+		echo "hello   world"  
+		echo hello    world
+		echo "Today is 'date'"
+
+	sudo date -s 时间   修改系统时间
+
+	df -T 查看磁盘使用情况
+	df -T -h 带单位显示
+
+----------------------------------------------
+
+用户管理
+	用户属性:
+		用户名
+		口令
+		用户ID(UID)
+		用户主目录(home)
+		用户shell
+
+	/etc/passwd  存放用户信息
+
+	man 5 passwd 查看passwd的内容格式
+		- 登录名
+		- 经过加密的口令
+		- UID
+		- GID
+		- 个人信息
+		- 主目录
+		- 登录shell
+
+	/etc/group 包含UNIX组的名称和每个成员列表
+		组名
+		加密口令
+		GID
+		成员列表  彼此用逗号隔开
+
+
+	用户添加:
+		sudo adduser 用户名
+	
+	adduser 配置文件  /etc/adduser.conf
+
+
+	deluser 删除用户
+		deluser --remove-home username
+		删除用户同时删除用户的家目录
+-----------------------------------------------------
+
+进程管理
+	ps:显示进程的动态
+
+	top 监视进程
+
+	pstree 	将进程以树状显示
+
+	kill [-signal] PID  结束进程
+	kill -l 查看所有的signal
+-----------------------------------------------------------
+
+	文件管理:
+		file filename  查看文件信息
+
+		mkdir [-p] dir_name  新建文件夹
+
+		mkdir -p d1/d2/d3  加-p可以嵌套新建文件夹  
+
+		ls -R dir可以查看文件夹的级联关系
+
+		rmdir [-p] dir_name  删除文件夹  加-p 可以递归删除   
+		rmir -p d1/d2/d3  ==>  rmdir -r dir1
+
+
+		链接文件类型:
+			硬链接:
+					ln 目标文件  链接名
+
+					ls -li 可以查看每个独立文件的inode
+
+
+			软链接:  
+				ln -s 目标文件  链接名    相当于windows创建快捷方式
+				创建链接文件的时候  目标文件应当使用绝对路径  否则当链接文件被移动后 将产生异常
+
+
+		文件归档:
+			将一堆文件重新整理 放到一个文件下
+			tar
+
+		文件压缩:
+				压缩:gzip
+
+
+				解压:gunzip
+
+
+-------------------------------------------------------------------------------------
+
+
+	网络配置:
+		如何标识每个连接到internet的网络接口?   使用IP地址
+
+		IP地址:
+			1.internet网络号
+			2.子网号
+			3.主机号
+
+		ifconfig   查看网络信息
+
+
+		ipconfig 配置网络信息
+
+			配置动态IP
+			 	dhclient
+
+		1.修改配置文件 /etc/network/interfaces
+
+		2.配置DNS客户端配置文件:/etc/resolv.conf
+
+		3.sudo /etc/init.d/networking restart  使得配置生效
+
+
+		nslookup  查看使用的DNS服务器的IP地址

@@ -1,0 +1,25 @@
+apt:
+	apt-get check 查看软件的依赖关系状态
+
+	apt-get -f install 修复软件包的依赖关系
+
+
+	apt-get install package 安装软件
+
+	apt-get install package --reinstall  重新安装
+
+	apt-get remove package  不完全卸载
+
+	apt-get --purge remove package 完全卸载
+
+
+	apt-get clean 清除软件包
+
+	apt-get autoclean 保留最新软件包,删除其余软件包
+
+
+	apt-cache show package 查看软件的详细信息
+
+	apt-cache policy 查看软件的安装状态
+
+	apt-cache depends 查看软件的依赖关系

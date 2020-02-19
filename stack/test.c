@@ -1,7 +1,7 @@
 #include"stack.h"
 
 
-int int main(int argc, char const *argv[])
+int main(int argc, char const *argv[])
 {
 	seqstack_t *S;
 	data_t n=3;

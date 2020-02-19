@@ -50,3 +50,70 @@ show_dlist(dlistnode *H)
 		p = p->next;
 	}
 }
+
+
+dlistnode *dlist_get(dlistnode *H, int pos)
+{
+	int i=-1;
+	dlistnode *p = H;
+
+	if(pos < 0)
+	{
+		printf("pos < 0,invalid\n");
+		return NULL;
+	}
+
+	while(i < pos)
+	{
+		p = p->next;
+		i++;
+		if(p == H)
+		{
+			printf("pos is invalid\n");
+			return NULL;
+		}
+	}
+	return p;
+}
+
+
+int dlist_insert(dlistnode *H, int data, int pos);
+{
+	dlistnode *p,*q;
+	p = dlist_get(H, pos);
+	if(p == NULL)
+	{
+		return -1;
+	}
+
+	if( (q=(dlistnode*)malloc(sizeof(dlistnode))) = NULL )
+	{
+		printf("malloc memory fail\n");
+		return -1;
+	}
+
+	q->data = data;
+	q->prior = p->prior;
+	q->next = p;
+	p->prior->next = q;
+	p->next = q;
+	return 0;
+}
+
+
+int dlist_delete(dlistnode *H, int pos)
+{
+	dlistnode *p;
+	p = dlist_get(H, pos);
+	if( p == NULL)
+	{
+		return -1;
+	}
+
+	p->prior->next = p->next;
+	p->next->prior = p->prior;
+
+	free(p);
+	p = NULL;
+	return 0;
+}

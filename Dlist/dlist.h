@@ -15,6 +15,9 @@ typedef struce node
 
 extern dlistnode *dlist_create(void);
 extern void show_dlist(dlistnode *H);
+extern dlistnode *dlist_get(dlistnode *H,int pos);
+extern int dlist_insert(dlistnode *H, int value, int pos);
+extern int dlist_delete(dlistnode *H, int pos);
 
 #endif
 

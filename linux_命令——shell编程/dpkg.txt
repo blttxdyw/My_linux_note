@@ -1,0 +1,11 @@
+dpkg  安装软件包
+	
+	1.没有网络
+	2.要知道软件包的依赖关系(安装这个软件还需要安装什么其他的软件)
+
+命令:
+	sudo dpkg -i package  安装已经下载好的软件包
+	sudo dpkg -L package  查看软件包的安装情况
+	sudo dpkg -r package  删除软件不删除配置信息
+	sudo dpkg -P package  删除软件以及配置信息
+	sudo dpkg -s package  查看软件的状态  
