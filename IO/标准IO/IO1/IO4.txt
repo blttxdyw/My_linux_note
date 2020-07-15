@@ -1,0 +1,33 @@
+按行输入：
+	#include <stdio.h>
+	char *gets(char *s)  //不推荐使用，只给出存储字符的其实位置，没有限制输入字符的长度，容易造成缓冲区溢出
+
+	char *fgets(char *s, int size, FILE *stream);
+	    s: 字符型指针，指向存储读入数据的缓冲区的地址。
+                   n: 从流中读入n-1个字符
+                   stream ： 指向读取的流。
+	   成功返回s,到文件末尾或者出错是返回NULL
+	   遇到'\n'或者已输入size-1个字符时返回，总是包含'\0', 当下次再调用fget()时会继续读取缓冲区中的内容
+
+例如：
+	int buf[6];
+	fget[buf, 6, stdin];
+	printf("%s\n",buf);
+
+	当从标准输入输入 abcd回车  buf中读到的是abcd\n\0  遇到\n停止读取
+	当输入abcdef时  buf中读到的是abcde\0  输入字符等于size-1返回
+	
+
+按行输出：
+	int puts(const char *s);
+	int fputs(const char *s, FILE *stream);
+
+	成功时返回输出的字符个数，出错是返回EOF
+	puts()将缓冲区S中的字符串输出到stdout,并且会追加'\n'
+	fputs()只是将缓冲区s中的字符输出到流steam中，不会追加'\n'
+
+
+如何统计一个文本包含多少行？
+1.   fgetc()  效率低
+2.   fgets    如何判断读取了一行？   	
+	buf[strlen-1]   是否是'\n'

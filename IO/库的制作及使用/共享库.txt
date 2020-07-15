@@ -1,0 +1,46 @@
+共享库：
+	1.编译（链接）时仅仅记录用到那个共享库中的哪个符号（函数），不复制共享库中相关的代码
+
+	2.程序中不包含库中代码，尺寸小
+
+	3.多个程序可共享同一个库
+
+	4.程序运行时需要加载库
+
+	5.库升级方便，无需重新编译程序
+
+	6.使用更加广泛
+
+
+共享库创建
+	1.确定库中函数的功能、接口
+	
+	2.编译生成目标文件
+		$gcc -c -fPIC hello.c bye.c -Wall
+			-fPIC ：-fPIC 作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，
+			            则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意位置，
+			            都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+
+	3.创建共享库
+	gcc -shared -o libcommon.so.1 hello.o bye.o
+		.1 : 共享库的版本
+
+	4.为共享库创建链接文件
+		ln -s libcommon.so.1 libcommon. so  
+				libcommon.so  不能加数字
+		符号链接文件命名规则
+			lib《库名》.so
+
+	5.为库编写头文件  声明库中的函数
+
+	6.链接共享库
+	gcc -o test test.c -L. -lcommon
+		gcc默认链接共享库，直接链接静态库加-static
+
+	7.添加共享库的加载路径
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.    :后是添加的搜索的路径
+
+	8.找到共享库的三种方法：
+		1.把库拷贝到系统库目录下
+		2.在LD_LIBRARY_PATH环境变量中添加库所在路径
+		3.添加/etc/ld.so.conf/*.conf文件，执行ldconfig刷新

@@ -1,0 +1,46 @@
+刷新流：
+	流自动刷新缓冲区的情况
+		1.缓冲区满的时候或者遇到\n
+			全缓冲：缓冲区满的时候
+			行缓冲：缓冲区满和遇到\n
+
+		2.当流关闭的时候（fclose）
+	
+		3.fflush()函数刷新
+
+		int fflush(FILE *fp)   成功返回0，出错返回EOF
+		将流缓冲区中的数据写入实际的文件
+		Linux下只能刷新输出缓冲区
+
+		输出缓冲区和输入缓冲区？？？？？？
+
+
+
+	定位流：
+		当一个流打开的时候，流内部会记录一个当前读写位置，
+		打开默认为0，当读写流的时候当前位置会往后移动。
+
+		long ftell(FILE *stream);	
+			返回流的当前读写位置，成功返回的当前读写位置，出错返回EOF
+
+		long fseek(FILE *stream, long offset, int whence);
+			用于设置流的当前读写位置
+			
+			FILE *stream:	流指针
+			long offset:	偏移量：可正可负
+			int whence:	要设置位置的一个基准点  
+				可选参数：SEEK_SET 文件开始位置
+					SEEK_CUR 当前位置
+					SEEK_END 文件末尾
+			成功返回0，失败返回EOF
+	
+		void rewind(FILE *stream)
+ 			把流定位到文件开始位置
+
+		读写流时，当前读写位置会自动后移
+
+	int ferror(FILE *stream);
+		判断流是否出错：返回1流出错，否则返回0
+
+	int feof(FILE *stream);
+		返回1文件已经到末尾，佛则返回0

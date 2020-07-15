@@ -1,0 +1,57 @@
+进程--exec函数族
+	1.进程调用exec函数族执行某个程序
+
+	2.进程当前内容被指定的程序替换
+
+	3.实现让父子进程执行不同的程序
+		1.父进程创建子进程
+		2.子进程调用exec函数族
+		3.父进程不受影响
+
+	
+	#include <uistd.h>
+
+	(1) int execl(const char *path, const char *arg, ...);
+		- const char *path:  程序名称，要包含所在的路径
+		- 后面的参数为字符串类型，用来传给指定的参数
+		- arg... :传递给执行的程序的参数列表
+		
+
+
+	(2)int execlp(const char *file, const char *arg, ...);
+		- file: 执行程序的名称，在PATH中查找
+
+		成功时执行指定的程序，失败时返回EOF
+
+
+	执行ls命令，显示/etc目录下的所有文件的详细信息
+		if( execl("/bin/ls", "ls", "-a", "-l", "/etc", NULL) < 0 )
+		{
+			perror("execl");
+		}
+
+		if( execlp("ls", "ls", "-a", "-l", "/etc", NULL) < 0 )
+		{
+			perror("execl");
+		}
+
+
+	(3)int execv (const char *path, char *const argv[]);
+		成功时执行指定的程序，失败时返回EOF
+
+		arg... :封装成指针数组的形式
+
+		执行ls命令，显示/etc目录下所有文件的详细信息
+			char *arg[] = {"ls", "-a", "-l", "/etc", NULL}
+			if( execv("/bin/ls", arg)  <0 )
+				perror("execv");
+
+	(4)int execvp(const char *file, char *const argv[])
+		if(  execvp("ls", arg ) < 0 )
+			perror("execvp");		
+
+
+	(5)   #include <stdlib.h>
+		int sysetm( const char *command);
+			成功时返回命令command的返回值，失败时返回EOF
+			当前进程灯带command执行结束后才继续执行

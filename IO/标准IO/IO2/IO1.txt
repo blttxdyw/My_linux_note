@@ -1,0 +1,26 @@
+按对象读写：
+	从流中读写若干个对象：
+		size_t fread(void *ptr, size_t size, size_t n, FILE *fp)
+			void *ptr： 	缓冲区的地址
+			size_t size : 	对象的大小（字符：1byte  整数：4bytes）
+			size_t n: 		 要从流中读取的对象个数
+			FILE *fp: 		要读取的流指正
+			返回值：		成功返回读写对象的个数，出错是返回EOF
+					读到文件末尾返回0
+
+		size_t fwrite(const void *ptr, size_t size , size_t n ,FILE *fp); 
+			从ptr中 写 size 个对象到指定的流fp中
+		
+		返回值：		成功返回读写对象的个数，出错是返回EOF
+
+
+
+小结：
+					优点    	     缺点
+	fgetc  fputc   读写单个字符  	文本、二进制	效率低
+	
+	fgets  fputs   按行读写         	效率低		只能读文本
+
+	fread fwirte  按对象读取	效率高，文本和二进制
+
+使用fread fwrite实现文件的复制？

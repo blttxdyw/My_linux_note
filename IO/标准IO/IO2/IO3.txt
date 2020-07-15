@@ -1,0 +1,22 @@
+格式化输出：
+	int printf(const char *fmt,...);
+
+
+
+	int fprintf(FILE *steam, const char *fmt, ...);
+		把字符串输出到指定的流中，stream 为stdout,就与printf一样
+
+	int sprintf(char *s, const char *fmt, ...);
+		把字符串输出到指定的buf中
+
+	成功返回输出的字符个数，出错返回EOF
+
+每隔1S向文件test,txt中写入当前系统时间，格式如下
+	1 2020-02-29 10:58:04
+	2 2020-02-29 10:58:05
+
+	time()用来获取系统时间（秒数）
+	localtime()将系统时间转化成本地时间
+	sleep()实现睡眠
+
+	

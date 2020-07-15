@@ -1,0 +1,34 @@
+#include <unistd.h>
+
+从fd中读取内容到buf中
+ssize_t read(int fd, void *buf, size_t count);
+	int fd:		文件描述符
+	void *buf:		接受从fd中读取内容
+	size_t count:	读取的字节数
+	返回值：		成功时返回实际读取到的字节数，出错返回EOF
+	读到文件末尾返回0
+
+
+把buf中的count个字节写入到fd中
+ssize_t write(int fd, void *buf, size_t count);
+	int fd:		文件描述符
+	void *buf:		存放要写入内容的缓冲区
+	size_t count:	写入的字节数，不能超过buf的大小
+	返回值：		成功时返回实际写入的字节数，出错返回EOF
+
+
+
+lseek函数用来定位文件
+	#include <unistd.h>
+	
+	off_t lseek(int fd, off_t offset, int whence)	;
+		int fd:		文件描述符
+		off_t offset:	偏移量
+		int whence:	基准点
+		成功返回当前文件的读写位置，出错时返回EOF
+		参数offset和whence同fseek完全一样
+
+实现文件的复制？
+	文件名通过命令行参数指定
+	打开文件方式的方式
+	读到文件的文件？read()返回值=0时

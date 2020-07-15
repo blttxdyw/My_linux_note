@@ -1,0 +1,46 @@
+打开流：
+	FILE *fopen(const char * path, const char *mode);
+	成功返回流指针，失败返回NULL
+
+	流打开的方式:
+		mode 参数: b表示二进制流，linux不区分二进制流和文本流
+			r / rb 	  只读方式打开文件，文件须存在
+			r+ / r+b     读写方式打开文件，文件必须存在
+			w / wb       只写方式，文件存在则长度清0，不存在创建
+			w+ / w+b  读写方式，其他同‘w’
+			a / ab        只写，不存在则创建；数据写入到文件的末尾
+			a+ / a+b   读写，其他同'a'
+
+		fopen()创建的文件的访问权限是0666(rw-rw-rw- )
+
+		linux系统中umask设定会影响文件的访问权限，规则为（0666 & ~umask）
+		
+		fopen  666           110 110 110
+		umask 022    取反 111 101 101
+		最终权限	            110 100 100   644   
+
+		umask可以通过umask 函数修改
+	
+
+	处理错误信息
+		extern int errno     存放错误号
+		void perror(const char *s)   先输出字符s，在输出错误号对应的错误信息
+		char *strerror(int error)     根据错误号返回对应的错误信息
+
+
+关闭流：
+	int fclose(FILE *stream);
+	成功返回0  失败返回EOF,并设置errno
+
+	流关闭时会自动刷新缓冲区中的数据并释放缓冲区
+	
+	当一个程序正常终止时，所有打开的流都会被关闭
+
+	流一旦关闭不能进行其他操作。
+
+程序中能够打开的文件或者流的个数有限，如何测试？
+	思路：循环打开流，成功则计数累加，知道出错
+	答案：1021+stdin+stdout+stderr = 1024
+		
+
+	
